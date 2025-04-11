@@ -1,0 +1,38 @@
+{% extends "base_page.html" %}
+
+{% block pagetitle %}
+Форма добавления
+{% endblock %}
+
+{% block content %}
+	<div>
+		<form method="post">
+			<div>
+				<label for="character"> Иероглиф </label>
+				<input type="text" class="form-control input-lg" name="character" value required>
+			</div>
+			<div>
+				<label for="pinyin"> Транскрипция </label>
+				<input type="text" class="form-control input-lg" name="pinyin" value required>
+			</div>
+			<div>
+				<label for="tone"> Тон </label>
+				<input type="text" class="form-control input-lg" name="tone" value required>
+			</div>
+
+			<div>
+				<label for="translation"> Перевод </label>
+				<input type="text" class="form-control input-lg" name="translation" value required>
+			</div>
+
+			<div>
+				<button type="submit" formaction="/send-character"> Отправить </button>
+
+
+
+		</form>
+	</div>
+
+
+{% endblock %}
+

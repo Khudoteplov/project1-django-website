@@ -21,4 +21,6 @@ from . import views
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('', views.home),
+    path('add-character', views.add),
+    path('send-character', views.send),
 ]
