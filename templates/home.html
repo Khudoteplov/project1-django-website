@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-	<meta charset="UTF-8">
-	<title> Placeholder </title>
-</head>
-<body>
-	<div class="container">
+{% extends "base_page.html" %}
+
+{% block pagetitle %}
+Временно
+{% endblock %}
+
+{% block content %}
+<div class="container">
 		<header class="border-top">
 			<a href="/">
 				<div class="fs-2 mb-3">
@@ -16,9 +16,14 @@
 	</div>
 
 
+	{% for item in items %}
+	<li> {{item}} </li>
+
+	{% endfor %}
+
+
+{% endblock %}
 
 
 
-</main>
-</body>
-</html>
+
