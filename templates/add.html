@@ -7,6 +7,7 @@
 {% block content %}
 	<div>
 		<form method="post">
+            {% csrf_token %}
 			<div>
 				<label for="character"> Иероглиф </label>
 				<input type="text" class="form-control input-lg" name="character" value required>
