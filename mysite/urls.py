@@ -23,4 +23,5 @@ urlpatterns = [
     path('', views.home),
     path('add-character', views.add),
     path('send-character', views.send),
+    path('test', views.test), 
 ]

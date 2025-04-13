@@ -1,0 +1,32 @@
+{% extends "base_page.html" %}
+
+{% block pagetitle %}
+Повторение
+{% endblock %}
+
+{% block content %}
+
+
+<div> {{character}} </div>
+
+
+<button id="btn_show_ans" onclick="show_answer()"> Показать ответ </button>
+
+
+<div id="answer" style="display: none;"> 
+{{pinyin_tone}} 
+{{translation}}
+hello
+<a href="/test"> Далее </a>
+</div>
+
+<script type="text/javascript">
+function show_answer() {
+     document.getElementById("btn_show_ans").remove();
+     document.getElementById("answer").style.display='';   
+
+}
+</script>
+
+
+{% endblock %}
