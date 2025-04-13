@@ -56,9 +56,11 @@ def register(request):
 @login_required
 def list(request):
     if request.method == 'POST':
-        pass
-    elif request.method == 'DELETE':
-        pass
+        aim = request.POST.get("aim")
+        if aim == 'delete':
+            characters_db.delete_character(request.POST.get('char_id'))
+            return render(request, 'list.html', 
+                    context={"items": characters_db.get_characters_for_table(request.user)})
 
     return render(request, 'list.html', context={"items": characters_db.get_characters_for_table(request.user)})
 

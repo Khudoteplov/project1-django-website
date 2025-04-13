@@ -15,15 +15,25 @@
 <th scope='col'> Транскрипция </th>
 <th scope='col'> Тон </th>
 <th scope='col'> Значение </th>
+<th scope='col'> Удалить </th>
 </tr>
 </thead>
 <tbody>
-	{% for character, pinyin, tone, translation in items %}
+	{% for character, pinyin, tone, translation, char_id in items %}
 	<tr>
         <td> {{character}} </td>
         <td> {{pinyin}} </td>
         <td> {{tone}} </td>
         <td> {{translation}} </td>
+
+        <td>
+            <form method="post" action="{% url 'list'%}">
+                {% csrf_token %}
+                <input name="aim" type='hidden', value='delete' />
+                <input name="char_id" type='hidden', value={{char_id}} />
+                <button type="submit"> Удалить </button> 
+            </form> 
+        </td>
     </tr>
 	{% endfor %}
 </tbody>
