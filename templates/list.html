@@ -1,0 +1,36 @@
+{% extends "base_page.html" %}
+
+{% block pagetitle %}
+Список иероглифов пользователя {{ user.username }}
+{% endblock %}
+
+{% block content %}
+
+
+
+<table>
+<thead>
+<tr>
+<th scope='col'> Иероглиф </th>
+<th scope='col'> Транскрипция </th>
+<th scope='col'> Тон </th>
+<th scope='col'> Значение </th>
+</tr>
+</thead>
+<tbody>
+	{% for character, pinyin, tone, translation in items %}
+	<tr>
+        <td> {{character}} </td>
+        <td> {{pinyin}} </td>
+        <td> {{tone}} </td>
+        <td> {{translation}} </td>
+    </tr>
+	{% endfor %}
+</tbody>
+</table>
+
+
+
+
+
+{% endblock %}
