@@ -14,23 +14,26 @@
 <th scope='col'> Иероглиф </th>
 <th scope='col'> Транскрипция </th>
 <th scope='col'> Тон </th>
-<th scope='col'> Значение </th>
+<th scope='col'> Перевод </th>
+<th scope='col'> Правильно pinyin </th>
+<th scope='col'> Правильно перевод </th>
 <th scope='col'> Удалить </th>
 </tr>
 </thead>
 <tbody>
-	{% for character, pinyin, tone, translation, char_id in items %}
+	{% for char, pinyin, tone, translation, char_id, pr, tr, act in items %}
 	<tr>
-        <td> {{character}} </td>
+        <td> {{char}} </td>
         <td> {{pinyin}} </td>
         <td> {{tone}} </td>
         <td> {{translation}} </td>
-
+	<td> {{pr}} </td>
+	<td> {{tr}} </td>
         <td>
             <form method="post" action="{% url 'list'%}">
                 {% csrf_token %}
-                <input name="aim" type='hidden', value='delete' />
-                <input name="char_id" type='hidden', value={{char_id}} />
+                <input name="aim" type='hidden' value='delete' />
+                <input name="char_id" type='hidden' value={{char_id}} />
                 <button type="submit"> Удалить </button> 
             </form> 
         </td>

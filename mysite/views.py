@@ -23,20 +23,44 @@ def send(request):
         new_tone = request.POST.get("tone")
         new_translation = request.POST.get("translation")
         author = request.user
-        characters_db.write_character(new_character, new_pinyin, new_tone, new_translation, author)
-        return render(request, "home.html", 
-                      context={"items": characters_db.get_characters_for_table(request.user)})
+        characters_db.write_character(new_character, new_pinyin,
+                                      new_tone, new_translation, author)
+        return render(request, "home.html")
 
 @login_required
 def test(request):
-    deck = characters_db.get_characters_for_table(request.user)
-    current_card_number = random.randint(0, len(deck)-1)
-    current_char = deck[current_card_number][0]
-    current_pinyin_tone = deck[current_card_number][1] + str(deck[current_card_number][2])
-    current_translation = deck[current_card_number][3]
-    return render(request, "test.html", 
-            context={'character': current_char, 
-            'pinyin_tone': current_pinyin_tone, 'translation': current_translation})
+    if request.method == "POST":
+        char_id = int(request.POST.get("char_id"))
+        result = request.POST.get("result")
+        if result == "right":
+            characters_db.switch_in_test(char_id)
+            characters_db.incr_pinyin_cnt(char_id)
+            characters_db.incr_translation_cnt(char_id)
+        elif result == "pinyin":
+            characters_db.reset_translation_right_cnt(char_id)
+            characters_db.incr_pinyin_cnt(char_id)
+        elif result == "translation":
+            characters_db.incr_translation_cnt(char_id)
+            characters_db.reset_pinyin_right_cnt(char_id)
+        elif result == "wrong":
+            characters_db.reset_translation_right_cnt(char_id)
+            characters_db.reset_pinyin_right_cnt(char_id)
+
+    test_list = characters_db.get_characters_for_test(request.user)
+    if len(test_list) == 0:
+        characters_db.add_all_characters_for_test(request.user)
+        test_list = characters_db.get_characters_for_test(request.user)
+        
+    if len(test_list) > 0:
+        rand_numb = random.randint(0, len(test_list)-1)
+        curr_char = test_list[rand_numb]
+        char, pinyin, tone, translation, char_id = curr_char
+        return render(request, "test.html", context={
+            'character': char, 'pinyin_tone': pinyin+str(tone), 
+            'translation': translation, 'char_id': char_id})
+
+
+    
     
 
 
@@ -59,10 +83,11 @@ def list(request):
         aim = request.POST.get("aim")
         if aim == 'delete':
             characters_db.delete_character(request.POST.get('char_id'))
-            return render(request, 'list.html', 
-                    context={"items": characters_db.get_characters_for_table(request.user)})
+            return render(request, 'list.html', context={
+                "items": characters_db.get_characters_for_table(request.user)})
 
-    return render(request, 'list.html', context={"items": characters_db.get_characters_for_table(request.user)})
+    return render(request, 'list.html', context={
+        "items": characters_db.get_characters_for_table(request.user)})
 
 
 

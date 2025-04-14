@@ -14,6 +14,13 @@ class Characters(models.Model):
     pinyin = models.TextField()
     tone = models.TextField() 
     translation = models.TextField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)        
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    active = models.BooleanField(default=True)
+    in_test = models.BooleanField(default=True)
+    pinyin_right_cnt = models.IntegerField(default=0) 
+    translation_right_cnt = models.IntegerField(default=0)    
+      
     class Meta:
         db_table = 'Characters'
+        ordering = ['active']
+

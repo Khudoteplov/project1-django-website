@@ -16,8 +16,36 @@
 <div id="answer" style="display: none;"> 
 {{pinyin_tone}} 
 {{translation}}
-hello
-<a href="/test"> Далее </a>
+<form method="POST" action="/test">
+	{% csrf_token %}
+	<input type="hidden" name="result" value="right" />
+	<input type="hidden" name="char_id" value={{char_id}} />
+	<button type=submit> Все верно </button>
+</form>
+
+<form method="POST" action="/test">
+	{% csrf_token %}
+	<input type="hidden" name="result" value="pinyin" />
+	<input type="hidden" name="char_id" value={{char_id}} />
+	<button type=submit> Верная транскрипция </button>
+</form>
+
+<form method="POST" action="/test">
+	{% csrf_token %}
+	<input type="hidden" name="result" value="translation" />
+	<input type="hidden" name="char_id" value={{char_id}} />
+	<button type=submit> Верный перевод </button>
+</form>
+
+<form method="POST" action="/test">
+	{% csrf_token %}
+	<input type="hidden" name="result" value="wrong" />
+	<input type="hidden" name="char_id" value={{char_id}} />
+	<button type=submit> Неверно </button>
+</form>
+
+
+
 </div>
 
 <script type="text/javascript">
