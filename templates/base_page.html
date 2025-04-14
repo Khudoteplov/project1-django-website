@@ -3,9 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block page-title %}{% endblock %}</title>
+    <!-- load static -->
+    {% load static %}
+    <!-- CSS -->
+    <link href="{% static 'bootstrap.css' %}" rel="stylesheet">
+    <link rel="shortcut icon" type="image/svg" href="{% static 'favicon.ico' %}"/>
+
 </head>
-<body>
+<body class="">
 <main>
+
+<div class="container">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+      <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+<img src="{% static 'great_wall.jpg' %}" alt="My image">
+      </a>
+
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="/" class="nav-link px-2 link-secondary">Домой</a></li>
+        <li><a href="/test" class="nav-link px-2 link-dark">Тренировка</a></li>
+        <li><a href="/list" class="nav-link px-2 link-dark"> Иероглифы</a></li>
+        <li><a href="/add-character" class="nav-link px-2 link-dark">Добавить</a></li>
+      </ul>
+
+      <div class="col-md-3 text-end">
+
+
+{% if user.is_authenticated %}
+
+Вы авторизованы как {{ user.username }}
+<form method="post" action="{% url 'logout'%}">
+{% csrf_token %}
+<button type="submit" class="btn btn-primary">Выйти</button>
+</form> 
+
+
+{% else %}
+
+<form action="{% url 'login'%}">
+{% csrf_token %}
+<button type="submit" class="btn btn-outline-primary me-2">Вход</button>
+</form> 
+<form action="{% url 'register'%}">
+{% csrf_token %}
+<button type="submit" class="btn btn-primary">Регистрация</button>
+</form> 
+
+{% endif %}
+
+      </div>
+    </header>
+  </div>
+
+
+
 
 <div id="js_alert">
 <h1> включите java script </h1>
@@ -15,32 +66,17 @@ document.getElementById("js_alert").style.display='none';
 </script>
 
 
-{% if user.is_authenticated %}
-You are authorised as {{ user.username }}
-<div> 
-<form method="post" action="{% url 'logout'%}">
-{% csrf_token %}
-<button type="submit"> Выйти </button> 
-</form> 
-</div>
 
-{% else %}
-You are not authorised 
-<a href="{% url 'login' %}"> Войти </a>
-<a href="{% url 'register' %}"> Зарегистрироваться </a>
-{% endif %}
 
-    <div class="container">
-        <header>
-            <a href="/"> <span> To mainpage </span> </a>
-        </header>
-    </div>
-<div>
+
+<div class='justify-content-center' >
     <h1> {% block pagetitle %} {% endblock %} </h1>
 </div>
     <div class="container">
         {% block content %}{% endblock %}
     </div>
+
+
 </main>
 </body>
 </html>

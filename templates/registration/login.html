@@ -1,7 +1,15 @@
+{% extends "base_page.html" %}
+
+{% block pagetitle %}
 <h2> Вход </h2>
+{% endblock %}
+
+{% block content %}
+
 
 <form method='post'>
     {% csrf_token %}
     {{ form.as_p }}
-    <button type='submit'> Войти </button>
+    <button type='submit' class="btn btn-primary w-100 py-2"> Войти </button>
 </form>
+{% endblock %}

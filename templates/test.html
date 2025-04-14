@@ -1,7 +1,9 @@
 {% extends "base_page.html" %}
 
 {% block pagetitle %}
-Повторение
+<div class="container">
+<h2> Режим тренировки </h2>
+</div>
 {% endblock %}
 
 {% block content %}
@@ -9,10 +11,10 @@
 Нет доступных иероглифов
 {% else %}
 
-<div> {{character}} </div>
+<div class="col-lg-12 fs-1 align-content-center mastfoot"> <h1>{{character}}</h1> </div>
 
-
-<button id="btn_show_ans" onclick="show_answer()"> Показать ответ </button>
+<div>
+<button id="btn_show_ans" onclick="show_answer()" class="btn btn-primary w-200 py-2"> Показать ответ </button>
 
 
 <div id="answer" style="display: none;"> 
@@ -22,32 +24,32 @@
 	{% csrf_token %}
 	<input type="hidden" name="result" value="right" />
 	<input type="hidden" name="char_id" value={{char_id}} />
-	<button type=submit> Все верно </button>
+	<button type=submit class="btn btn-success w-200 py-2"> Все верно </button>
 </form>
 
 <form method="POST" action="/test">
 	{% csrf_token %}
 	<input type="hidden" name="result" value="pinyin" />
 	<input type="hidden" name="char_id" value={{char_id}} />
-	<button type=submit> Верная транскрипция </button>
+	<button type=submit class="btn btn-warning w-200 py-2"> Верный пиньинь </button>
 </form>
 
 <form method="POST" action="/test">
 	{% csrf_token %}
 	<input type="hidden" name="result" value="translation" />
 	<input type="hidden" name="char_id" value={{char_id}} />
-	<button type=submit> Верный перевод </button>
+	<button type=submit class="btn btn-warning w-200 py-2"> Верный перевод </button>
 </form>
 
 <form method="POST" action="/test">
 	{% csrf_token %}
 	<input type="hidden" name="result" value="wrong" />
 	<input type="hidden" name="char_id" value={{char_id}} />
-	<button type=submit> Неверно </button>
+	<button type=submit class="btn btn-danger w-200 py-2"> Неверно </button>
 </form>
 </div>
 {% endif %}
-
+</div>
 <script type="text/javascript">
 function show_answer() {
      document.getElementById("btn_show_ans").remove();

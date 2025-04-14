@@ -1,23 +1,25 @@
 {% extends "base_page.html" %}
 
 {% block pagetitle %}
-Список иероглифов пользователя {{ user.username }}
+<div class="container">
+<h2> Список ваших иероглифов </h2>
+</div>
 {% endblock %}
 
 {% block content %}
 
 
-
-<table>
+<div class="container px-4 py-5" id="terms-table">
+<div class="table-responsive">
+<table class="table table-hover">
 <thead>
 <tr>
 <th scope='col'> Иероглиф </th>
-<th scope='col'> Транскрипция </th>
+<th scope='col'> Пиньинь </th>
 <th scope='col'> Тон </th>
 <th scope='col'> Перевод </th>
-<th scope='col'> Правильно pinyin </th>
+<th scope='col'> Правильно пиньинь </th>
 <th scope='col'> Правильно перевод </th>
-<th scope='col'> Удалить </th>
 </tr>
 </thead>
 <tbody>
@@ -34,13 +36,11 @@
                 {% csrf_token %}
                 <input name="aim" type='hidden' value='active' />
                 <input name="char_id" type='hidden' value={{char_id}} />
-                <button type="submit"> 
 			{% if act %} 
-			Деактивировать
+			<button type="submit" class="btn btn-light w-100 py-2"> Выключить	</button> 
 			{% else %}
-			Активировать
-			{% endif %}
-		</button> 
+			<button type="submit" class="btn btn-dark w-100 py-2"> Включить	</button> 
+			{% endif %} 
             </form> 
         </td>
 
@@ -52,13 +52,15 @@
                 {% csrf_token %}
                 <input name="aim" type='hidden' value='delete' />
                 <input name="char_id" type='hidden' value={{char_id}} />
-                <button type="submit"> Удалить </button> 
+                <button type="submit" class="btn btn-danger w-100 py-2"> Удалить </button> 
             </form> 
         </td>
     </tr>
 	{% endfor %}
 </tbody>
 </table>
+</div>
+</div>
 
 
 
