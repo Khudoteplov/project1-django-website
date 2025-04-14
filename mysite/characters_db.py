@@ -40,14 +40,21 @@ def switch_in_test(char_id):
     obj.save()
 
 def activate(char_id):
-     obj = Characters.objects.get(char_id=char_id)
-     setattr(obj, 'active', True)
-     obj.save()
+    obj = Characters.objects.get(char_id=char_id)
+    setattr(obj, 'active', True)
+    obj.save()
 
 def deactivate(char_id):
-     obj = Characters.objects.get(char_id=char_id)
-     setattr(obj, 'active', False)
-     obj.save()
+    obj = Characters.objects.get(char_id=char_id)
+    setattr(obj, 'active', False)
+    obj.save()
+
+def switch_activation(char_id):
+    obj = Characters.objects.get(char_id=char_id)
+    t = getattr(obj, 'active')
+    setattr(obj, 'active', not t)
+    setattr(obj, 'in_test', not t)
+    obj.save()
 
 def reset_pinyin_right_cnt(char_id):
     obj = Characters.objects.get(char_id=char_id)

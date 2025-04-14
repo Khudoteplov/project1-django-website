@@ -50,12 +50,13 @@ def test(request):
     if len(test_list) == 0:
         characters_db.add_all_characters_for_test(request.user)
         test_list = characters_db.get_characters_for_test(request.user)
-        
+    if len(test_list) == 0:
+        return render(request, "test.html", context={"empty": True})
     if len(test_list) > 0:
         rand_numb = random.randint(0, len(test_list)-1)
         curr_char = test_list[rand_numb]
         char, pinyin, tone, translation, char_id = curr_char
-        return render(request, "test.html", context={
+        return render(request, "test.html", context={'empty': False,
             'character': char, 'pinyin_tone': pinyin+str(tone), 
             'translation': translation, 'char_id': char_id})
 
@@ -83,6 +84,10 @@ def list(request):
         aim = request.POST.get("aim")
         if aim == 'delete':
             characters_db.delete_character(request.POST.get('char_id'))
+            return render(request, 'list.html', context={
+                "items": characters_db.get_characters_for_table(request.user)})
+        elif aim == 'active':
+            characters_db.switch_activation(request.POST.get('char_id'))
             return render(request, 'list.html', context={
                 "items": characters_db.get_characters_for_table(request.user)})
 

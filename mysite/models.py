@@ -22,5 +22,5 @@ class Characters(models.Model):
       
     class Meta:
         db_table = 'Characters'
-        ordering = ['active']
+        ordering = ['-active']
 
